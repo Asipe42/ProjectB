@@ -1,0 +1,18 @@
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UnityEngine;
+
+namespace Modin
+{
+    [CreateAssetMenu(fileName = "DialogueDB", menuName = "Modin/Dialogue/DB")]
+    public class DialogueDB : SerializedScriptableObject
+    {
+        public List<DialogueChapter> Chapters;
+
+        public bool TryGetChapter(string id, out DialogueChapter result)
+        {
+            result = Chapters.Find(x => x.ID == id);
+            return result != null;
+        }
+    }
+}
