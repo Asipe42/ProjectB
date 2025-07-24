@@ -10,5 +10,11 @@ namespace Modin
     {
         public string ID;
         public List<DialogueLine> Lines;
+
+        public bool TryGetLine(string id, out DialogueLine result)
+        {
+            result = Lines.Find(x => x.ID == id);
+            return result != null;
+        }
     }
 }
