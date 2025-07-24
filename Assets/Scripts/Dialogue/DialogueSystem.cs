@@ -10,14 +10,29 @@ namespace Modin
         private DialogueChapter currentChapter;
         private DialogueSequence currentSequence;
         private DialogueLine currentLine;
-        
-        private void ShowCurrentLine()
+
+        public void Initialize(DialogueSnapshot snapshot)
         {
-            // UI 관리 객체
-            // UI 관리 객체 없이. System~ 직접 관리한다.
+            if (!dialogueDB.TryResolveSnapshot(snapshot, out currentChapter, out currentSequence, out currentLine))
+            {
+                Debug.LogError("");
+                return;
+            }
+        }
+
+        public void CleanUp()
+        {
+            currentChapter = null;
+            currentSequence = null;
+            currentLine = null;
         }
         
-        private void NextLine()
+        public void Show()
+        {
+            dialogueUI.UpdateViews(currentLine);
+        }
+        
+        public void Next()
         {
             
         }

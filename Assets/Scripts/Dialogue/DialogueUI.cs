@@ -8,7 +8,7 @@ namespace Modin
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private TextMeshProUGUI speakerText;
 
-        public void UpdateDialogue(DialogueLine line)
+        public void UpdateViews(DialogueLine line)
         {
             UpdateMessage(line.Text);
             UpdateSpeaker(line.Speaker);
