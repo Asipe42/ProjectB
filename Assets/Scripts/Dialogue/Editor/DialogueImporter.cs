@@ -38,12 +38,13 @@ namespace Modin
                     {
                         ID = id,
                         Speaker = speaker,
-                        Text = text
+                        Message = text
                     });
                 }
             }
 
             var sequence = ScriptableObject.CreateInstance<DialogueSequence>();
+            sequence.ID = fileName;
             sequence.Lines = lines;
 
             ctx.AddObjectToAsset(fileName, sequence);

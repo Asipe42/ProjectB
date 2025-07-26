@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 namespace Modin
 {
@@ -7,6 +8,7 @@ namespace Modin
     {
         public string ID;
         public string Speaker;
-        public string Text;
+        public string Message;
+        public string NextID;
     }
 }

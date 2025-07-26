@@ -21,5 +21,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  ID: DGC_1
+  NextID: DGC_2
   Sequences:
   - {fileID: 7535561473075274036, guid: 03d217c4be1d60c43a1574ab6445f387, type: 3}

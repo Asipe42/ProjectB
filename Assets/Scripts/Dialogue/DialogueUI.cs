@@ -8,9 +8,19 @@ namespace Modin
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private TextMeshProUGUI speakerText;
 
+        public void Initialize()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void CleanUp()
+        {
+            gameObject.SetActive(false);
+        }
+        
         public void UpdateViews(DialogueLine line)
         {
-            UpdateMessage(line.Text);
+            UpdateMessage(line.Message);
             UpdateSpeaker(line.Speaker);
         }
 
