@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 46a886672b4e42c4e8b75a2743555725
+guid: 66f59be8986b056498d778cd8028df78
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Hakgyoansim Wooju
+  - Pretendard
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
