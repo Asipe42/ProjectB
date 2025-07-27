@@ -8,5 +8,6 @@ namespace Modin
     public class GameConfig : SerializedScriptableObject
     {
         public float loadingDuration;
+        public float introDuration;
     }
 }

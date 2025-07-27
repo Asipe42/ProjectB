@@ -8,8 +8,9 @@ namespace Modin
     public class DialogueManager : MonoSingleton<DialogueManager>, IInputHandler
     {
         [SerializeField] private DialogueDB dialogueDB;
-        [SerializeField] private DialogueUI dialogueUI;
 
+        private DialogueUI dialogueUI;
+        
         private DialogueChapter currentChapter;
         private DialogueSequence currentSequence;
         private DialogueLine currentLine;
@@ -21,7 +22,8 @@ namespace Modin
                 Debug.LogError($"{nameof(DialogueSnapshot)}이 유효하지 않습니다.");
                 return;
             }
-            
+
+            dialogueUI = UIManager.Instance.GetUI<DialogueUI>();
             dialogueUI.Open(new DialogueUIModel()
             {
                 OnNext = Next
@@ -33,11 +35,11 @@ namespace Modin
         
         public void CleanUp()
         {
+            dialogueUI.Close();
             currentChapter = null;
             currentSequence = null;
             currentLine = null;
-            
-            dialogueUI.Close();
+            dialogueUI = null;
         }
         
         public void Show()

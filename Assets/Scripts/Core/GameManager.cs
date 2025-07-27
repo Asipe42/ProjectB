@@ -25,18 +25,10 @@ namespace Modin
          */
 
         [SerializeField] private GameConfig gameConfig;
-        [SerializeField] private Canvas mainCanvas;
 
         private GameState currentState;
         private List<SaveData> saveData;
         
-        protected override void Awake()
-        {
-            base.Awake();
-            
-            DontDestroyOnLoad(mainCanvas.gameObject);
-        }
-
         private void Start()
         {
             LoadGame();
@@ -95,8 +87,18 @@ namespace Modin
              *  2. 인트로 UI
              *  3. 타이틀로 진입
              */
+
+            LoadingUI loadingUI = UIManager.Instance.GetUI<LoadingUI>();
+            loadingUI.Open(new LoadingUIModel());
+            yield return new WaitForSeconds(gameConfig.loadingDuration);
+            loadingUI.Close();
             
-            yield break;
+            IntroUI introUI = UIManager.Instance.GetUI<IntroUI>();
+            introUI.Open(new IntroUIModel());
+            yield return new WaitForSeconds(gameConfig.introDuration);
+            introUI.Close();
+            
+            Enter(GameState.Title);
         }
         
         private IEnumerator EnterTitle()
@@ -116,7 +118,7 @@ namespace Modin
              *  1. 로딩 UI 열기
              *  2. 대화 UI
              */
-            
+
             yield break;
         }
 
