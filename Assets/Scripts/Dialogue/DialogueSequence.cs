@@ -2,31 +2,32 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Modin
 {
     [CreateAssetMenu(fileName = "DialogueSequence", menuName = "Modin/Dialogue/Sequence")]
     public class DialogueSequence : SerializedScriptableObject
     {
-        public string ID;
-        public string NextID;
-        public List<DialogueLine> Lines;
+        public string id;
+        public string nextID;
+        public List<DialogueLine> lines;
 
-        public DialogueLine GetFirstLine() => Lines.Count > 0 ? Lines[0] : null;
-        public DialogueLine GetLastLine() => Lines.Count > 0 ? Lines[^1] : null;
+        public DialogueLine GetFirstLine() => lines.Count > 0 ? lines[0] : null;
+        public DialogueLine GetLastLine() => lines.Count > 0 ? lines[^1] : null;
         
         public bool TryGetLine(string id, out DialogueLine result)
         {
-            result = Lines.Find(x => x.ID == id);
+            result = lines.Find(x => x.id == id);
             return result != null;
         }
 
         public bool TryGetNextLine(DialogueLine currentLine, out DialogueLine nextLine)
         {
-            int index = Lines.FindIndex(x => x.ID == currentLine.NextID);
-            if (index >= 0 && index < Lines.Count - 1)
+            int index = lines.FindIndex(x => x.id == currentLine.nextID);
+            if (index >= 0 && index < lines.Count - 1)
             {
-                nextLine = Lines[index + 1];
+                nextLine = lines[index + 1];
                 return true;
             }
 

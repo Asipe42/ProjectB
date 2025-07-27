@@ -1,12 +1,13 @@
 ﻿using System;
+using UnityEngine.Serialization;
 
 namespace Modin
 {
     [Serializable]
     public class DialogueSnapshot
     {
-        public string ChapterID;
-        public string SequenceID;
-        public string LineID;
+        public string chapterID;
+        public string sequenceID;
+        public string lineID;
     }
 }

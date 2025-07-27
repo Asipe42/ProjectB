@@ -6,6 +6,5 @@
         Intro,
         Title,
         Gameplay,
-        Loading
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -23,30 +24,129 @@ namespace Modin
          *  - 로딩: 게임 흐름 전환 시 대기 화면
          */
 
-        public GameConfig GameConfig;
+        [SerializeField] private GameConfig gameConfig;
+        [SerializeField] private Canvas mainCanvas;
 
-        private GameState gameState;
+        private GameState currentState;
+        private List<SaveData> saveData;
         
         protected override void Awake()
         {
             base.Awake();
-            gameState = GameState.Loading;
+            
+            DontDestroyOnLoad(mainCanvas.gameObject);
         }
 
         private void Start()
         {
-            Run();
+            LoadGame();
+            Enter(GameState.Intro);
         }
 
-        private void Run()
+        public void SaveGame()
         {
-            StartCoroutine(RunRoutine());
+            
         }
 
-        private IEnumerator RunRoutine()
+        public void LoadGame()
         {
-            yield return new WaitForSeconds(GameConfig.LoadingConfig.BaseDuration);
-            SceneManager.LoadScene("Main");
+            
+        }
+
+        public void Enter(GameState gameState)
+        {
+            if (currentState == gameState)
+                return;
+            
+            switch (currentState)
+            {
+                case GameState.Intro:
+                    ExitIntro();
+                    break;
+                case GameState.Title:
+                    ExitTitle();
+                    break;
+                case GameState.Gameplay:
+                    ExitGameplay();
+                    break;
+            }
+
+            currentState = gameState;
+            
+            switch (gameState)
+            {
+                case GameState.Intro:
+                    StartCoroutine(EnterIntro());
+                    break;
+                case GameState.Title:
+                    StartCoroutine(EnterTitle());
+                    break;
+                case GameState.Gameplay:
+                    StartCoroutine(EnterGameplay());
+                    break;
+            }
+        }
+        
+        private IEnumerator EnterIntro()
+        {
+            /*
+             * 순서
+             *  1. 로딩 UI
+             *  2. 인트로 UI
+             *  3. 타이틀로 진입
+             */
+            
+            yield break;
+        }
+        
+        private IEnumerator EnterTitle()
+        {
+            /*
+             * 순서
+             *  1. 타이틀 UI
+             */
+            
+            yield break;
+        }
+        
+        private IEnumerator EnterGameplay()
+        {
+            /*
+             * 순서
+             *  1. 로딩 UI 열기
+             *  2. 대화 UI
+             */
+            
+            yield break;
+        }
+
+        private void ExitIntro()
+        {
+            /*
+             * 순서
+             *  1. 인트로 UI 닫기
+             */
+        }
+        
+        private void ExitTitle()
+        {
+            /*
+             * 순서
+             *  1. 타이틀 UI 닫기
+             */
+        }
+        
+        private void ExitGameplay()
+        {
+            /*
+             * 순서
+             *  1. 대화 UI 닫기
+             */
+        }
+        
+        private void Loading()
+        {
+            
         }
     }
 }

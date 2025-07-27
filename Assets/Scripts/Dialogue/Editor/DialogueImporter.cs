@@ -36,16 +36,16 @@ namespace Modin
 
                     lines.Add(new DialogueLine
                     {
-                        ID = id,
-                        Speaker = speaker,
-                        Message = text
+                        id = id,
+                        speaker = speaker,
+                        message = text
                     });
                 }
             }
 
             var sequence = ScriptableObject.CreateInstance<DialogueSequence>();
-            sequence.ID = fileName;
-            sequence.Lines = lines;
+            sequence.id = fileName;
+            sequence.lines = lines;
 
             ctx.AddObjectToAsset(fileName, sequence);
             ctx.SetMainObject(sequence);

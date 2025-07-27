@@ -3,7 +3,7 @@
 namespace Modin
 {
     [Serializable]
-    public class TitleConfig
+    public class SaveData
     {
         
     }

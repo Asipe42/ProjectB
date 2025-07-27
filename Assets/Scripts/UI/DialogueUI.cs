@@ -32,8 +32,8 @@ namespace Modin
         
         public void UpdateViews(DialogueLine line)
         {
-            UpdateMessage(line.Message);
-            UpdateSpeaker(line.Speaker);
+            UpdateMessage(line.message);
+            UpdateSpeaker(line.speaker);
         }
 
         private void UpdateMessage(string message)

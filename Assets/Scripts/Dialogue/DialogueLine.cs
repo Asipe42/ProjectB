@@ -6,9 +6,9 @@ namespace Modin
     [Serializable]
     public class DialogueLine
     {
-        public string ID;
-        public string Speaker;
-        public string Message;
-        public string NextID;
+        public string id;
+        public string speaker;
+        public string message;
+        public string nextID;
     }
 }
