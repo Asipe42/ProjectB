@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Modin
 {
@@ -21,7 +23,7 @@ namespace Modin
          *  - 로딩: 게임 흐름 전환 시 대기 화면
          */
 
-        [SerializeField] private GameConfig gameConfig;
+        public GameConfig GameConfig;
 
         private GameState gameState;
         
@@ -43,9 +45,8 @@ namespace Modin
 
         private IEnumerator RunRoutine()
         {
-            
-            
-            yield return null;
+            yield return new WaitForSeconds(GameConfig.LoadingConfig.BaseDuration);
+            SceneManager.LoadScene("Main");
         }
     }
 }
