@@ -24,14 +24,14 @@ namespace Modin
                 return;
             }
             
-            DialogueSystem dialogueSystem = Object.FindFirstObjectByType<DialogueSystem>();
-            if (dialogueSystem == null)
+            DialogueManager dialogueManager = Object.FindFirstObjectByType<DialogueManager>();
+            if (dialogueManager == null)
             {
-                Debug.LogError($"{nameof(DialogueSystem)}이 유효하지 않습니다.");
+                Debug.LogError($"{nameof(DialogueManager)}이 유효하지 않습니다.");
                 return;
             }
 
-            dialogueSystem.Init(Snapshot);
+            dialogueManager.Init(Snapshot);
             EditorApplication.isPlaying = true;
         }
     }

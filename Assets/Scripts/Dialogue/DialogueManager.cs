@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Modin
 {
-    public class DialogueSystem : MonoBehaviour
+    public class DialogueManager : MonoSingleton<DialogueManager>
     {
         [SerializeField] private DialogueDB dialogueDB;
         [SerializeField] private DialogueUI dialogueUI;
