@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Modin
 {
     [CreateAssetMenu(fileName = "DialogueDB", menuName = "Modin/Dialogue/DB")]
     public class DialogueDB : SerializedScriptableObject
     {
-        public List<DialogueChapter> Chapters;
+        public List<DialogueChapter> chapters;
 
         public bool TryGetChapter(string id, out DialogueChapter result)
         {
-            result = Chapters.Find(x => x.ID == id);
+            result = chapters.Find(x => x.id == id);
             return result != null;
         }
 
         public bool TryGetNextChapter(DialogueChapter currentChapter, out DialogueChapter result)
         {
-            int index = Chapters.FindIndex(x => x.ID == x.NextID);
-            if (index >= 0 && index < Chapters.Count - 1)
+            int index = chapters.FindIndex(x => x.id == x.nextID);
+            if (index >= 0 && index < chapters.Count - 1)
             {
-                result = Chapters[index + 1];
+                result = chapters[index + 1];
                 return true;
             }
 
@@ -39,21 +40,21 @@ namespace Modin
             sequence = null;
             line = null;
 
-            if (!TryGetChapter(snapshot.ChapterID, out chapter))
+            if (!TryGetChapter(snapshot.chapterID, out chapter))
             {
-                Debug.LogError($"{nameof(DialogueChapter)}가 유효하지 않습니다. ({snapshot.ChapterID})");
+                Debug.LogError($"{nameof(DialogueChapter)}가 유효하지 않습니다. ({snapshot.chapterID})");
                 return false;
             }
 
-            if (!chapter.TryGetSequence(snapshot.SequenceID, out sequence))
+            if (!chapter.TryGetSequence(snapshot.sequenceID, out sequence))
             {
-                Debug.LogError($"{nameof(DialogueSequence)}가 유효하지 않습니다. ({snapshot.SequenceID})");
+                Debug.LogError($"{nameof(DialogueSequence)}가 유효하지 않습니다. ({snapshot.sequenceID})");
                 return false;
             }
 
-            if (!sequence.TryGetLine(snapshot.LineID, out line))
+            if (!sequence.TryGetLine(snapshot.lineID, out line))
             {
-                Debug.LogError($"{nameof(DialogueLine)}가 유효하지 않습니다. ({snapshot.LineID})");
+                Debug.LogError($"{nameof(DialogueLine)}가 유효하지 않습니다. ({snapshot.lineID})");
                 return false;
             }
 

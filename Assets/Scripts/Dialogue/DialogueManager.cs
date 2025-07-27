@@ -7,7 +7,6 @@ namespace Modin
 {
     public class DialogueManager : MonoSingleton<DialogueManager>, IInputHandler
     {
-        [SerializeField] private DialogueSnapshot sampleSnapshot;
         [SerializeField] private DialogueDB dialogueDB;
         [SerializeField] private DialogueUI dialogueUI;
 
