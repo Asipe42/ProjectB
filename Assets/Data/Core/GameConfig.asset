@@ -21,5 +21,5 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  LoadingConfig:
-    BaseDuration: 1.5
+  loadingDuration: 1.5
+  introDuration: 1.5
