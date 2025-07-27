@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Modin
 {
-    public class DialogueManager : MonoSingleton<DialogueManager>
+    public class DialogueManager : MonoSingleton<DialogueManager>, IInputHandler
     {
+        [SerializeField] private DialogueSnapshot sampleSnapshot;
         [SerializeField] private DialogueDB dialogueDB;
         [SerializeField] private DialogueUI dialogueUI;
 
@@ -21,8 +23,13 @@ namespace Modin
                 return;
             }
             
-            dialogueUI.Initialize();
+            dialogueUI.Open(new DialogueUIModel()
+            {
+                OnNext = Next
+            });
             Show();
+            
+            InputManager.Instance.RegisterHandler(this);
         }
         
         public void CleanUp()
@@ -31,7 +38,7 @@ namespace Modin
             currentSequence = null;
             currentLine = null;
             
-            dialogueUI.CleanUp();
+            dialogueUI.Close();
         }
         
         public void Show()
@@ -39,19 +46,15 @@ namespace Modin
             dialogueUI.UpdateViews(currentLine);
         }
         
-        public bool TryAdvanceDialogue()
+        public void Next()
         {
             if (currentSequence.TryGetNextLine(currentLine, out currentLine))
-            {
                 Show();
-                return true;
-            }
 
             if (currentChapter.TryGetNextSequence(currentSequence, out currentSequence))
             {
                 currentLine = currentSequence.GetFirstLine();
                 Show();
-                return true;
             }
 
             if (dialogueDB.TryGetNextChapter(currentChapter, out currentChapter))
@@ -59,10 +62,12 @@ namespace Modin
                 currentSequence = currentChapter.GetFirstSequence();
                 currentLine = currentSequence.GetFirstLine();
                 Show();
-                return true;
             }
-            
-            return false;
+        }
+
+        public void OnSpacebar()
+        {
+            Next();
         }
     }
 }

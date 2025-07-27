@@ -1,19 +1,31 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace Modin
 {
-    public class DialogueUI : MonoBehaviour
+    public class DialogueUI : BaseUI
     {
         [SerializeField] private TextMeshProUGUI messageText;
         [SerializeField] private TextMeshProUGUI speakerText;
+        [SerializeField] private Button nextButton;
 
-        public void Initialize()
+        private DialogueUIModel model;
+
+        private void Awake()
         {
+            nextButton.onClick.AddListener(OnClickedNext);
+        }
+        
+        public override void Open(BaseUIModel model)
+        {
+            this.model = model as DialogueUIModel;
             gameObject.SetActive(true);
         }
 
-        public void CleanUp()
+        public override void Close()
         {
             gameObject.SetActive(false);
         }
@@ -32,6 +44,11 @@ namespace Modin
         private void UpdateSpeaker(string speaker)
         {
             speakerText.text = speaker;
+        }
+
+        private void OnClickedNext()
+        {
+            model.OnNext.Invoke();
         }
     }
 }
