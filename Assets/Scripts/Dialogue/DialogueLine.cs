@@ -8,16 +8,43 @@ namespace Modin
     [Serializable]
     public class DialogueLine
     {
-        [FoldoutGroup("필수")] [ReadOnly] public string id;
-        [FoldoutGroup("필수")] [ReadOnly] public string speaker;
-        [FoldoutGroup("필수")] [ReadOnly] [TextArea] public string message;
-        [FoldoutGroup("필수")] public string nextID;
+        [FoldoutGroup("필수")] [ReadOnly] 
+        public string id;
+        
+        [FoldoutGroup("필수")] [ReadOnly] 
+        public string speaker;
+        
+        [FoldoutGroup("필수")] [ReadOnly, TextArea] 
+        public string message;
+        
+        [FoldoutGroup("필수")] [BoxGroup("필수/분기")] 
+        public DialogueBranch[] branches;
+        
+        [FoldoutGroup("필수")] [BoxGroup("필수/분기")] 
+        [HideIf("@HasBranch")] 
+        public string nextID;
 
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] [PreviewField] [LabelText("배경")] public Sprite background;
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] public DialogueVisual[] visuals;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] 
+        [PreviewField] 
+        [LabelText("배경")] 
+        public Sprite background;
+        
+        [FoldoutGroup("옵션")] 
+        [BoxGroup("옵션/비주얼")] 
+        public DialogueVisual[] visuals;
 
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] [LabelText("배경음")] public string musicKey;
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] [LabelText("음성")] public string voiceKey;
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] [LabelText("효과음")] public string soundKey;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] 
+        [LabelText("배경음")] 
+        public string musicKey;
+        
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] 
+        [LabelText("음성")] 
+        public string voiceKey;
+        
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")]
+        [LabelText("효과음")] 
+        public string soundKey;
+        
+        public bool HasBranch => branches != null && branches.Length > 0;
     }
 }
