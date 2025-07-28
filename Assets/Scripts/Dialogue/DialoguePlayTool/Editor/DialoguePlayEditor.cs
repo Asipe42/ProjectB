@@ -1,18 +1,21 @@
 ﻿using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using Sirenix.Utilities.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace Modin
 {
-    public class DialoguePlayTool : OdinEditorWindow
+    public class DialoguePlayEditor : OdinEditorWindow
     {
         public DialogueSnapshot Snapshot;
         
-        [MenuItem("Tools/Dialogue/PlayTool")]
+        [MenuItem("Tools/Dialogue/Play Editor")]
         private static void OpenWindow()
         {
-            GetWindow<DialoguePlayTool>("Dialogue Play Tool").Show();
+            var window = GetWindow<DialoguePlayEditor>("Dialogue Play Editor");
+            window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 500);
         }
         
         [Button]
