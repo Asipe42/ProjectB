@@ -9,9 +9,9 @@ namespace Modin
     public class DialogueVisual
     {
         [PreviewField] public Sprite sprite;
-        public int order;
-        public VisualSlotType slotType;
-        public VisualAnimationType appearAnimationType;
-        public VisualAnimationType disappearAnimationType;
+        [Range(0, 2)] public int order;
+        [EnumToggleButtons] [LabelText("슬롯")] public VisualSlotType slotType;
+        [EnumToggleButtons] [LabelText("등장 연출")] public VisualAnimationType appearAnimationType;
+        [EnumToggleButtons] [LabelText("퇴장 연출")] public VisualAnimationType disappearAnimationType;
     }
 }
