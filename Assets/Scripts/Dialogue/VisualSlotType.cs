@@ -1,6 +1,6 @@
 ﻿namespace Modin
 {
-    public enum VisualSlot
+    public enum VisualSlotType
     {
         None,
         Left,
