@@ -13,7 +13,7 @@ namespace Modin
         [FoldoutGroup("필수")] [TextArea] public string message;
         [FoldoutGroup("필수")] public string nextID;
 
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] public Sprite background;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] [PreviewField] public Sprite background;
         [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] public DialogueVisual[] visuals;
 
         [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] public string musicKey;
