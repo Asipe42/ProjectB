@@ -8,16 +8,16 @@ namespace Modin
     [Serializable]
     public class DialogueLine
     {
-        [FoldoutGroup("Base")] public string id;
-        [FoldoutGroup("Base")] public string speaker;
-        [FoldoutGroup("Base")] [TextArea] public string message;
-        [FoldoutGroup("Base")] public string nextID;
+        [FoldoutGroup("필수")] public string id;
+        [FoldoutGroup("필수")] public string speaker;
+        [FoldoutGroup("필수")] [TextArea] public string message;
+        [FoldoutGroup("필수")] public string nextID;
 
-        [FoldoutGroup("Visual")] public Sprite background;
-        [FoldoutGroup("Visual")] public DialogueVisual[] visuals;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] public Sprite background;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] public DialogueVisual[] visuals;
 
-        [FoldoutGroup("Sound")] public string musicKey;
-        [FoldoutGroup("Sound")] public string voiceKey;
-        [FoldoutGroup("Sound")] public string soundKey;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] public string musicKey;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] public string voiceKey;
+        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] public string soundKey;
     }
 }
