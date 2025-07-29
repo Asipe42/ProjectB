@@ -20,18 +20,28 @@ namespace Modin
         
         private void OnEnable()
         {
-            graphView = new DialogueGraphView
-            {
-                name = "Dialogue Graph"
-            };
-            graphView.StretchToParentSize();
-            rootVisualElement.Add(graphView);
-            
+            /*
+             * 동작
+             *  1. GraphView 생성
+             *  2. Toolbar 생성
+             */
+
+            InitializeGraphView();
+            InitializeToolbar();
+        }
+        
+        private void OnDisable()
+        {
+            rootVisualElement.Remove(graphView);
+        }
+
+        private void InitializeToolbar()
+        {
             Toolbar toolbar = new Toolbar();
 
             Button selectButton = new Button(() => { SelectSequence(); })
             {
-                text = "Select"
+                text = "New Select"
             };
             toolbar.Add(selectButton);
             
@@ -50,24 +60,72 @@ namespace Modin
             rootVisualElement.Add(toolbar);
         }
         
-        private void OnDisable()
+        private void InitializeGraphView()
         {
-            rootVisualElement.Remove(graphView);
+            graphView = new DialogueGraphView
+            {
+                name = "Dialogue Graph"
+            };
+            
+            graphView.StretchToParentSize();
+            rootVisualElement.Add(graphView);
         }
 
         private void SelectSequence()
         {
-            Debug.Log($"{nameof(SelectSequence)}");
+            string path = EditorUtility.OpenFilePanel("Select Dialogue Sequence", "Assets/Data/Dialogue", string.Empty);
+            
+            if (string.IsNullOrEmpty(path))
+                return;
+            
+            string assetPath = "Assets" + path.Substring(Application.dataPath.Length);
+            DialogueSequence sequence = AssetDatabase.LoadAssetAtPath<DialogueSequence>(assetPath);
+            if (sequence == null)
+            {
+                Debug.LogError("선택한 파일이 유효하지 않습니다.");
+                return;
+            }
+            
+            graphView.SelectSequence(sequence);
         }
         
         private void SaveGraph()
         {
-            Debug.Log($"{nameof(SaveGraph)}");
+            DialogueSequence selectedSequence = graphView.SelectedSequence;
+            if (selectedSequence == null)
+            {
+                EditorUtility.DisplayDialog("안내", "저장할 그래프가 선택되지 않았습니다.", "확인");
+                return;
+            }
+            
+            DialogueGraphSO graphSO = ScriptableObject.CreateInstance<DialogueGraphSO>();
+            graphSO.sequence = selectedSequence;
+            graphSO.nodePositions = graphView.CollectNodePositions(); 
+            
+            string savePath = $"Assets/Data/Dialogue/Graph/{selectedSequence.id}.asset";
+            AssetDatabase.CreateAsset(graphSO, savePath);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            
+            EditorUtility.DisplayDialog("안내", $"성공적으로 그래프를 저장하였습니다.\n경로: {savePath}", "확인");
         }
     
         private void LoadGraph()
         {
-            Debug.Log($"{nameof(LoadGraph)}");
+            string path = EditorUtility.OpenFilePanel("Select Dialogue Sequence", "Assets/Data/Dialogue", string.Empty);
+            
+            if (string.IsNullOrEmpty(path))
+                return;
+            
+            string assetPath = "Assets" + path.Substring(Application.dataPath.Length);
+            DialogueGraphSO graphSO = AssetDatabase.LoadAssetAtPath<DialogueGraphSO>(assetPath);
+            if (graphSO == null)
+            {
+                Debug.LogError("선택한 파일이 유효하지 않습니다.");
+                return;
+            }
+            
+            graphView.LoadSequence(graphSO);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Modin
 
         public bool TryGetNextLine(DialogueLine currentLine, out DialogueLine nextLine)
         {
-            int index = lines.FindIndex(x => x.id == currentLine.nextID);
+            int index = lines.FindIndex(x => x.id == currentLine.GetNextID());
             if (index >= 0 && index < lines.Count - 1)
             {
                 nextLine = lines[index + 1];
