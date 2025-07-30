@@ -33,6 +33,8 @@ namespace Modin
             {
                 this.sequence = sequence;
             }
+
+            public string ID => sequence.id;
         }
     }
 }

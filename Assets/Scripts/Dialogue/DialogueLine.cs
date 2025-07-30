@@ -1,50 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Modin
 {
     [Serializable]
     public class DialogueLine
     {
-        [FoldoutGroup("필수")] [ReadOnly] 
+        [BoxGroup("필수")] [ReadOnly] 
         public string id;
         
-        [FoldoutGroup("필수")] [ReadOnly] 
+        [BoxGroup("필수")] [ReadOnly] 
         public string speaker;
         
-        [FoldoutGroup("필수")] [ReadOnly, TextArea] 
+        [BoxGroup("필수")] [ReadOnly, TextArea] 
         public string message;
         
-        [FoldoutGroup("필수")] [BoxGroup("필수/분기")] 
-        public DialogueBranch[] branches;
-        
-        [FoldoutGroup("필수")] [BoxGroup("필수/분기")] 
-        [HideIf("@HasBranch")] 
-        public string nextID;
+        [BoxGroup("필수")] [FoldoutGroup("필수/분기")] 
+        public DialogueBranch[] branches = new DialogueBranch[1];
 
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/비주얼")] 
+        [BoxGroup("옵션")] [FoldoutGroup("옵션/비주얼")] 
         [PreviewField] 
         [LabelText("배경")] 
         public Sprite background;
         
-        [FoldoutGroup("옵션")] 
-        [BoxGroup("옵션/비주얼")] 
+        [BoxGroup("옵션")] [FoldoutGroup("옵션/비주얼")] 
         public DialogueVisual[] visuals;
 
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] 
+        [BoxGroup("옵션")] [FoldoutGroup("옵션/사운드")] 
         [LabelText("배경음")] 
         public string musicKey;
         
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")] 
+        [BoxGroup("옵션")] [FoldoutGroup("옵션/사운드")] 
         [LabelText("음성")] 
         public string voiceKey;
         
-        [FoldoutGroup("옵션")] [BoxGroup("옵션/사운드")]
+        [BoxGroup("옵션")] [FoldoutGroup("옵션/사운드")]
         [LabelText("효과음")] 
         public string soundKey;
         
-        public bool HasBranch => branches != null && branches.Length > 0;
+        public string GetNextID()
+        {
+            if (branches != null && branches.Length == 1)
+                return branches[0].nextID;
+
+            return null;
+        }
     }
 }
